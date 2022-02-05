@@ -1,5 +1,6 @@
 ﻿using Authorization.Models;
 using Authorization.Repository;
+using Authorization.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -24,11 +25,12 @@ namespace Authorization.Controllers
             return View();
         }*/
         private static IConfiguration _config;
+        private readonly IAuthenticationService service;
 
-
-        public AuthenticationController(IConfiguration config)
+        public AuthenticationController(IConfiguration config, IAuthenticationService _service)
         {
             _config = config;
+            service = _service;
         }
 
 
@@ -36,16 +38,16 @@ namespace Authorization.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginInput loginInput)
         {
-            AuthenticationRepository repo= new AuthenticationRepository(_config);
+            //AuthenticationRepository repo= new AuthenticationRepository(_config);
             IActionResult res = Unauthorized();
-            var userId = repo.AuthenticateUser(loginInput);
+            var userId = service.AuthenticateUser(loginInput);
             if(userId == null)
             {
                 return NotFound();
             }
             else
             {
-                var token = repo.GenerateJsonWebToken(userId);
+                var token = service.GenerateJsonWebToken(userId);
                 res = Ok(new { userId = userId, token = token });
                 return res;
             }
@@ -56,46 +58,23 @@ namespace Authorization.Controllers
         {
             Request.Headers.TryGetValue("Authorization", out var Token);
             Request.Headers.TryGetValue("userName", out var UserName);
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            AuthenticationRepository repo = new AuthenticationRepository(_config);
-            var validationParameters = repo.GetValidationParameters(UserName);
-            if (validationParameters == null)
+            /*if (UserName == null)
             {
                 return NotFound("userName is required");
-            }
-            SecurityToken validatedToken;
-
-            try
+            }*/
+            string validated = service.ValidationUser(UserName, Token);
+            if (validated == null)
             {
-                IPrincipal principal = tokenHandler.ValidateToken(Token, validationParameters, out validatedToken);
-                if (validatedToken is JwtSecurityToken jwtSecurityToken)
-                {
-                    var result = jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase);
-
-                    if (result == false)
-                    {
-                        return NotFound("Token is Invalid.");
-                    }
-                    else
-                    {
-                        if(validatedToken.ValidTo.ToFileTimeUtc() > DateTime.Now.ToFileTimeUtc())
-                        {
-                            return Ok("Successfully validated.");
-                        } 
-                        else
-                        {
-                            NotFound("Token expired.");
-                        }
-                    }
-                }
-                return NotFound("Token does not match or may expired.");
+                return NotFound("userName and Token is required");
             }
-            catch (Exception ex)
+            else if(validated== "Successfully validated.")
             {
-                return NotFound("Token does not match or may expired.");
+                return Ok(validated);
             }
-
+            else
+            {
+                return BadRequest(validated);
+            }
 
         }
 

@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Authorization",
-    "\\Authorization\\Controllers"
+    "\\Authorization\\Controllers",
+    "\\Authorization\\Repository"
   ],
   "SelectedNode": "\\Authorization.sln",
   "PreviewInSolutionExplorer": false

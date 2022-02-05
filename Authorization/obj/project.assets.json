@@ -826,11 +826,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\cts\\Return-Order-Management\\Authorization\\Authorization\\Authorization.csproj",
+      "projectUniqueName": "E:\\cts\\Return-Order-Management\\Authorization\\Authorization\\Authorization\\Authorization.csproj",
       "projectName": "Authorization",
-      "projectPath": "E:\\cts\\Return-Order-Management\\Authorization\\Authorization\\Authorization.csproj",
+      "projectPath": "E:\\cts\\Return-Order-Management\\Authorization\\Authorization\\Authorization\\Authorization.csproj",
       "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "E:\\cts\\Return-Order-Management\\Authorization\\Authorization\\obj\\",
+      "outputPath": "E:\\cts\\Return-Order-Management\\Authorization\\Authorization\\Authorization\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
