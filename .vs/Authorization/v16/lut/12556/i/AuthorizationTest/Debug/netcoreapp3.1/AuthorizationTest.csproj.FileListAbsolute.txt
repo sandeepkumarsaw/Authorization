@@ -21,3 +21,4 @@ E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16
 E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16\lut\0\i\AuthorizationTest\Debug\netcoreapp3.1\AuthorizationTest.csproj.CopyComplete
 E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16\lut\0\i\AuthorizationTest\Debug\netcoreapp3.1\AuthorizationTest.dll
 E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16\lut\0\i\AuthorizationTest\Debug\netcoreapp3.1\AuthorizationTest.genruntimeconfig.cache
+E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16\lut\0\i\AuthorizationTest\Debug\netcoreapp3.1\AuthorizationTest.csproj.AssemblyReference.cache
