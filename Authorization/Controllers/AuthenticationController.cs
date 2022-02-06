@@ -26,13 +26,11 @@ namespace Authorization.Controllers
         }*/
         private static IConfiguration _config;
         private readonly IAuthenticationService service;
-
         public AuthenticationController(IConfiguration config, IAuthenticationService _service)
         {
             _config = config;
             service = _service;
         }
-
 
 
         [HttpPost("login")]
