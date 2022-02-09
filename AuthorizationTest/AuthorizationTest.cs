@@ -12,15 +12,14 @@ namespace AuthorizationTest
 {
     public class AuthorizationTest
     {
-        private AuthenticationRepository repo;
+        private AuthenticationRepository repository;
         private AuthenticationService service;
         private AuthenticationController controller;
         private IConfiguration config = new ConfigurationBuilder().AddJsonFile($"appsettings.json", optional: false).Build();
         public AuthorizationTest()
         {
-            //_config = config;
-            repo = new AuthenticationRepository();
-            service = new AuthenticationService(config, repo);
+            repository = new AuthenticationRepository();
+            service = new AuthenticationService(config, repository);
             controller = new AuthenticationController(config, service);
         }
 
@@ -29,7 +28,7 @@ namespace AuthorizationTest
         {
             string Username = "admin";
             string Password = "password";
-            var data = controller.Login(new LoginInput() { Username=Username, Password=Password});
+            var userDetails = controller.Login(new LoginInput() { Username=Username, Password=Password});
             Assert.NotNull(data);
         }
 
@@ -46,7 +45,7 @@ namespace AuthorizationTest
         {
             string Username = "admin";
             string Password = "password";
-            var data = repo.GetUserDetails(new LoginInput() { Username = Username, Password = Password });
+            var data = repository.GetUserDetails(new LoginInput() { Username = Username, Password = Password });
             Assert.NotNull(data);
         }
     }

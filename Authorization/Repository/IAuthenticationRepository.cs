@@ -8,6 +8,6 @@ namespace Authorization.Repository
 {
     public interface IAuthenticationRepository
     {
-        public LoginInput GetUserDetails(LoginInput login);
+        public LoginInput GetUserDetails(LoginInput loginInput);
     }
 }

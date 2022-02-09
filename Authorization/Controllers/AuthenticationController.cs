@@ -20,10 +20,7 @@ namespace Authorization.Controllers
     [ApiController]
     public class AuthenticationController : Controller
     {
-        /*public IActionResult Index()
-        {
-            return View();
-        }*/
+
         private static IConfiguration _config;
         private readonly IAuthenticationService service;
         public AuthenticationController(IConfiguration config, IAuthenticationService _service)
@@ -36,42 +33,38 @@ namespace Authorization.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginInput loginInput)
         {
-            //AuthenticationRepository repo= new AuthenticationRepository(_config);
             IActionResult res = Unauthorized();
             var userId = service.AuthenticateUser(loginInput);
-            if(userId == null)
+            if (userId == null)
             {
                 return NotFound();
             }
             else
             {
-                var token = service.GenerateJsonWebToken(userId);
-                res = Ok(new { userId = userId, token = token });
+                var JwtToken = service.GenerateJsonWebToken(userId);
+                res = Ok(new { userId = userId, token = JwtToken });
                 return res;
             }
         }
-         
+
         [HttpGet("validate-token")]
-        public IActionResult ValidateUserToken()
+        public bool ValidateUserToken()
         {
-            Request.Headers.TryGetValue("Authorization", out var Token);
+            Request.Headers.TryGetValue("Authorization", out var JwtToken);
             Request.Headers.TryGetValue("userName", out var UserName);
-            /*if (UserName == null)
+
+            string validatedUser = service.ValidationUser(UserName, JwtToken);
+            if (validatedUser == null)
             {
-                return NotFound("userName is required");
-            }*/
-            string validated = service.ValidationUser(UserName, Token);
-            if (validated == null)
-            {
-                return NotFound("userName and Token is required");
+                return false;
             }
-            else if(validated== "Successfully validated.")
+            else if (validatedUser == "Successfully validated.")
             {
-                return Ok(validated);
+                return true;
             }
             else
             {
-                return BadRequest(validated);
+                return false;
             }
 
         }

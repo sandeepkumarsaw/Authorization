@@ -15,3 +15,4 @@ E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16
 E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16\lut\0\i\Authorization\netcoreapp3.1\Authorization.csproj.CopyComplete
 E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16\lut\0\i\Authorization\netcoreapp3.1\Authorization.dll
 E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16\lut\0\i\Authorization\netcoreapp3.1\Authorization.genruntimeconfig.cache
+E:\cts\Return-Order-Management\Authorization\Authorization\.vs\Authorization\v16\lut\0\i\Authorization\netcoreapp3.1\Authorization.csproj.AssemblyReference.cache

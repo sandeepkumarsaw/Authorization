@@ -10,6 +10,6 @@ namespace Authorization.Services
     {
         public string AuthenticateUser(LoginInput loginInput);
         public string GenerateJsonWebToken(string userId);
-        public string ValidationUser(string UserName, string Token);
+        public string ValidationUser(string UserName, string JwtToken);
     }
 }

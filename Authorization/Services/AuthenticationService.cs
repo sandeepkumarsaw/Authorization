@@ -27,13 +27,13 @@ namespace Authorization.Services
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(
+            var JwtToken = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],
                 audience: userId,
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: cred
                 );
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new JwtSecurityTokenHandler().WriteToken(JwtToken);
         }
 
         public string AuthenticateUser(LoginInput loginInput)
@@ -50,22 +50,20 @@ namespace Authorization.Services
             }
             return user.Username;
         }
-        public string ValidationUser(string UserName, string Token)
+        public string ValidationUser(string UserName, string JwtToken)
         {
-            if (UserName == null || Token==null)
+            if (UserName == null || JwtToken==null)
             {
                 return null;
             }
             else
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                //TokenValidationParameter tokenParameter = new TokenValidationParameter(_config);
                 var validationParameters = GetParameters(UserName);
                 SecurityToken validatedToken;
-
                 try
                 {
-                    IPrincipal principal = tokenHandler.ValidateToken(Token, validationParameters, out validatedToken);
+                    IPrincipal principal = tokenHandler.ValidateToken(JwtToken, validationParameters, out validatedToken);
                     if (validatedToken is JwtSecurityToken jwtSecurityToken)
                     {
                         var result = jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase);
