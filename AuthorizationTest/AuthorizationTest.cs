@@ -29,7 +29,7 @@ namespace AuthorizationTest
             string Username = "admin";
             string Password = "password";
             var userDetails = controller.Login(new LoginInput() { Username=Username, Password=Password});
-            Assert.NotNull(data);
+            Assert.NotNull(userDetails);
         }
 
         [Fact]
